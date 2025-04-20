@@ -11,6 +11,7 @@ using CG.Game.Player;
 using CG.Profile;
 using CG.Ship.Hull;
 using Gameplay.Perks;
+using Gameplay.Utilities;
 using HarmonyLib;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -86,13 +87,13 @@ public class PlayerProfilePatch
     }
 }
 
-[HarmonyPatch(typeof(Player), nameof(Player.JetpackDashCooldown), MethodType.Getter)]
+[HarmonyPatch(typeof(Player), nameof(Player.RegisterJetpackStats))]
 public class PlayerPatch
 {
     [HarmonyPostfix]
-    public static void Postfix(ref float __result)
+    public static void Postfix(ref Player __instance)
     {
         Plugin.Logger.LogInfo("PlayerPatch.Postfix called");
-        __result = 0f;
+        __instance.JetpackDashCooldown = 0;
     }
 }
