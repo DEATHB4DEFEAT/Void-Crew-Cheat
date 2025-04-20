@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
-        <TargetFramework>net35</TargetFramework>
+        <TargetFramework>net472</TargetFramework>
         <AssemblyName>VoidCrew</AssemblyName>
         <Product>Void Crew mod</Product>
         <Version>1.0.0</Version>
@@ -20,19 +19,14 @@
         <PackageReference Include="BepInEx.Core" Version="5.*"/>
         <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*"/>
         <PackageReference Include="UnityEngine.Modules" Version="2022.3.20f1" IncludeAssets="compile"/>
+        <PackageReference Include="VoidCrew.GameLibs" Version="1.1.0" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
         <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all"/>
     </ItemGroup>
 
-    <ItemGroup>
-        <Reference Include="MyAssembly">
-            <HintPath>/drives/LES/Steam/steamapps/common/Void Crew/Void Crew_Data/Managed/Assembly-CSharp.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-
-    <PropertyGroup>
-        <IntermediateOutputPath>/drives/LES/Steam/steamapps/common/Void Crew/BepInEx/plugins/VoidCrew/</IntermediateOutputPath>
-    </PropertyGroup>
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <Copy SourceFiles="$(TargetDir)$(TargetName).dll" DestinationFiles="/drives/LES/Steam/steamapps/common/Void Crew/BepInEx/Scripts/$(TargetName).dll" />
+    </Target>
 </Project>
