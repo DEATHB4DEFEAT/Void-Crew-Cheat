@@ -150,11 +150,11 @@ public class LeverPatch
     {
         if (__instance.LeverPosition < __instance.triggerThreshold)
         {
-            __instance.LeverPosition = __instance.triggerThreshold + 0.01f;
+            __instance.LeverPosition = __instance.triggerThreshold + 0.1f;
         }
         else if (__instance.LeverPosition > __instance.triggerThreshold)
         {
-            __instance.LeverPosition = __instance.triggerThreshold - 0.01f;
+            __instance.LeverPosition = __instance.triggerThreshold - 0.1f;
         }
         __instance.EndClick();
     }
