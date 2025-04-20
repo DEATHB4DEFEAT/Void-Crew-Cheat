@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoidCrew", "VoidCrew\VoidCrew.csproj", "{3B46BB6A-8D4C-48B2-8661-4C44363FE7AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3B46BB6A-8D4C-48B2-8661-4C44363FE7AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B46BB6A-8D4C-48B2-8661-4C44363FE7AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B46BB6A-8D4C-48B2-8661-4C44363FE7AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B46BB6A-8D4C-48B2-8661-4C44363FE7AA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
