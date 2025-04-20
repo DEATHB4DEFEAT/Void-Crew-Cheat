@@ -10,6 +10,7 @@ using CG.Game;
 using CG.Game.Player;
 using CG.Profile;
 using CG.Ship.Hull;
+using Gameplay.Cryptic;
 using Gameplay.Perks;
 using Gameplay.Utilities;
 using HarmonyLib;
@@ -95,5 +96,16 @@ public class PlayerPatch
     {
         Plugin.Logger.LogInfo("PlayerPatch.Postfix called");
         __instance.JetpackDashCooldown = 0;
+    }
+}
+
+[HarmonyPatch(typeof(CrypticKeyCombo), nameof(CrypticKeyCombo.StartCrypticGameplay))]
+public class CrypticKeyComboPatch
+{
+    [HarmonyPostfix]
+    public static void Postfix(ref CrypticKeyCombo __instance)
+    {
+        Plugin.Logger.LogInfo("CrypticKeyComboPatch.Postfix called");
+        __instance.Success();
     }
 }
