@@ -4,6 +4,7 @@ using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using CG;
+using CG.Client.Ship.Interactions;
 using CG.Client.UserData;
 using CG.Cloud;
 using CG.Game;
@@ -11,9 +12,12 @@ using CG.Game.Player;
 using CG.Profile;
 using CG.Ship.Hull;
 using Gameplay.Cryptic;
+using Gameplay.Enhancements;
+using Gameplay.Hub;
 using Gameplay.Perks;
 using Gameplay.Utilities;
 using HarmonyLib;
+using Interactions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
@@ -83,7 +87,6 @@ public class PlayerProfilePatch
     [HarmonyPostfix]
     public static void Postfix(ref int __result)
     {
-        Plugin.Logger.LogInfo("PlayerProfilePatch.Postfix called");
         __result = 0;
     }
 }
@@ -94,7 +97,6 @@ public class PlayerPatch
     [HarmonyPostfix]
     public static void Postfix(ref Player __instance)
     {
-        Plugin.Logger.LogInfo("PlayerPatch.Postfix called");
         __instance.JetpackDashCooldown = 0;
     }
 }
@@ -105,7 +107,55 @@ public class CrypticKeyComboPatch
     [HarmonyPostfix]
     public static void Postfix(ref CrypticKeyCombo __instance)
     {
-        Plugin.Logger.LogInfo("CrypticKeyComboPatch.Postfix called");
         __instance.Success();
+    }
+}
+[HarmonyPatch(typeof(Enhancement), nameof(Enhancement.Update))]
+public class EnhancementPatch
+{
+    [HarmonyPostfix]
+    public static void Postfix(ref Enhancement __instance)
+    {
+        if (__instance.State is EnhancementState.Cooldown or EnhancementState.Failed)
+        {
+            __instance.SetState(EnhancementState.Inactive, __instance.AppliedEnhancementEffect.DefaultGrade(), 1f);
+        }
+    }
+}
+
+[HarmonyPatch(typeof(HubMutatorManager), nameof(HubMutatorManager.GetMaxMutatorsCount))]
+public class HubMutatorManagerPatch
+{
+    [HarmonyPostfix]
+    public static void Postfix(ref int __result)
+    {
+        __result = 100;
+    }
+}
+
+[HarmonyPatch(typeof(LongPressSwitchClicker), nameof(LongPressSwitchClicker.HandleClickStart))]
+public class LongPressSwitchClickerPatch
+{
+    [HarmonyPostfix]
+    public static void Postfix(ref LongPressSwitchClicker __instance)
+    {
+        __instance.stateIndicator.ForceChange(!__instance.stateIndicator.Value);
+    }
+}
+[HarmonyPatch(typeof(Lever), nameof(Lever.StartClick))]
+public class LeverPatch
+{
+    [HarmonyPostfix]
+    public static void Postfix(ref Lever __instance)
+    {
+        if (__instance.LeverPosition < __instance.triggerThreshold)
+        {
+            __instance.LeverPosition = __instance.triggerThreshold + 0.01f;
+        }
+        else if (__instance.LeverPosition > __instance.triggerThreshold)
+        {
+            __instance.LeverPosition = __instance.triggerThreshold - 0.01f;
+        }
+        __instance.EndClick();
     }
 }
