@@ -18,8 +18,11 @@
         <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all"/>
         <PackageReference Include="BepInEx.Core" Version="5.*"/>
         <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*"/>
-        <PackageReference Include="UnityEngine.Modules" Version="v2022.3.20.6406910" IncludeAssets="compile"/>
-        <PackageReference Include="VoidCrew.GameLibs" Version="1.1.0" />
+        <PackageReference Include="UnityEngine.Modules" IncludeAssets="compile">
+            <HintPath>/home/death/.local/share/Steam/steamapps/common/Void Crew/Void Crew/Void Crew_Data/Managed/UnityEngine.Modules.dll</HintPath>
+            <Private>False</Private>
+        </PackageReference>
+        <PackageReference Include="VoidCrew.GameLibs" Version="1.2.4" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
@@ -27,6 +30,7 @@
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-        <Copy SourceFiles="$(TargetDir)$(TargetName).dll" DestinationFiles="/drives/LES/Steam/steamapps/common/Void Crew/BepInEx/plugins/$(TargetName).dll" />
+        <Copy SourceFiles="$(TargetDir)$(TargetName).dll" DestinationFiles="/home/death/.local/share/Steam/steamapps/common/Void Crew/BepInEx/scripts/$(TargetName).dll" />
+        <Copy SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFiles="/home/death/.local/share/Steam/steamapps/common/Void Crew/BepInEx/scripts/$(TargetName).pdb" />
     </Target>
 </Project>
