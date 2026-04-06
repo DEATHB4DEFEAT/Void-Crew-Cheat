@@ -40,6 +40,9 @@ public class Plugin : BaseUnityPlugin
     {
         _harmony.UnpatchSelf();
         InputSystem.onEvent -= OnInputEvent;
+        _highlightInteractables = false;
+        Update();
+
         _logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} has unloaded");
     }
 

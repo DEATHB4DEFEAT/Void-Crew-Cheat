@@ -3,7 +3,7 @@
         <TargetFramework>net472</TargetFramework>
         <AssemblyName>VoidCrew</AssemblyName>
         <Product>Void Crew mod</Product>
-        <Version>1.0.0</Version>
+        <Version>2.0.0</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>
         <RestoreAdditionalProjectSources>
